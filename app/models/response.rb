@@ -27,7 +27,6 @@ class Response < ActiveRecord::Base
 
   def existing_responses
     question_id =  answer_choice.question_id
-    #refactor later to use only one query
 
     Response.find_by_sql [<<-SQL, question_id, self.responder_id]
     SELECT

@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
              :class_name => "Poll"
 
   has_many :answer_choices, :primary_key => :id, :foreign_key => :question_id,
-           :class_name => "AnswerChoice"
+           :class_name => "AnswerChoice", :dependent => :destroy
 
    def results
      answer_choices = self.answer_choices.includes(:responses)
@@ -15,6 +15,4 @@ class Question < ActiveRecord::Base
        answer_responses_counts[answer.text] = answer.responses.length
      end
    end
-
 end
-
