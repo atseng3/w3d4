@@ -13,7 +13,7 @@ class Response < ActiveRecord::Base
   private
 
   def author_cant_respond_to_poll
-    unless User.select("answer_choices.*").joins(:authored_polls => { :questions => :answer_choices}).where("answer_choices.id = ?", answer_choice_id).empty?
+    unless User.select("answer_choices.*").joins(:authored_polls => { :questions => :answer_choices}).where("answer_choices.id = ? AND users.id = ?", answer_choice_id, responder_id).empty?
       errors[:base] << "Can't answer your own question."
     end
   end
